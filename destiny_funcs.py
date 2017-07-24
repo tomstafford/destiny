@@ -8,6 +8,7 @@ def maketime(row):
     
 def findspacing(df,n):
     '''find spacing of 1st and nth game'''
+    import arrow
     try: 
         start=df[df['game_n']==1]['time'].values
         end=df[df['game_n']==n]['time'].values
@@ -33,17 +34,6 @@ def tagger(df):
     df['top_cr_']=df.sort_values(by='combatRating', ascending=False)['combatRating'][:3].mean()
     return df
 
-def savefigfunc(savename,figloc):
-    import pylab as plt
-    '''save fig in working dir as PNG and in MS directory as EPS'''
-    msloc=figloc #manuscript location
-    wkloc='figs/'#script development location
-    plt.savefig(msloc+savename+'.eps',bbox_inches='tight')
-    plt.savefig(wkloc+savename+'.png',bbox_inches='tight')
-    print("saving " + savename)
-
-
-
 def correlate(var1,var2,plevel):
     '''correlate and find confidence intervals
     assumes variables are pandas df series'''
@@ -53,9 +43,3 @@ def correlate(var1,var2,plevel):
     cor=stats.pearsonr(var1[mask],var2[mask])[0]
     CIs=psychometric.CIr(r=cor, n = len(var1), level = plevel)
     return cor,CIs[0],CIs[1]
-
-def writeresults(string):
-    f = open('destiny_results.txt', 'a')
-    f.write(string)
-    f.write('\n')
-    f.close()
