@@ -14,7 +14,7 @@ betas <- function (MOD)
 "
         
 # ---------- Setting Path
-setwd("/home/tom/Dropbox/university/expts/destiny")
+#setwd("/home/tom/Dropbox/university/expts/destiny")
 
 #load the data
 dat = read.csv("forR.csv")
