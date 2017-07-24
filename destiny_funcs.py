@@ -21,6 +21,7 @@ def findspacing(df,n):
     
 def ranker(df):
     '''sequential count of total games for each player'''
+    import numpy as np
     df['game_n'] = np.arange(len(df)) + 1
     return df  
     
@@ -33,6 +34,7 @@ def tagger(df):
     return df
 
 def savefigfunc(savename,figloc):
+    import pylab as plt
     '''save fig in working dir as PNG and in MS directory as EPS'''
     msloc=figloc #manuscript location
     wkloc='figs/'#script development location
@@ -45,6 +47,8 @@ def savefigfunc(savename,figloc):
 def correlate(var1,var2,plevel):
     '''correlate and find confidence intervals
     assumes variables are pandas df series'''
+    import scipy.stats as stats
+    psychometric=importr('psychometric') #first run install.packages("psychometric") in R
     mask=~var1.isnull() & ~var2.isnull()
     cor=stats.pearsonr(var1[mask],var2[mask])[0]
     CIs=psychometric.CIr(r=cor, n = len(var1), level = plevel)
