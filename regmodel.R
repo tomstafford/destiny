@@ -14,7 +14,7 @@ betas <- function (MOD)
 "
         
 # ---------- Setting Path
-#setwd("/home/tom/Dropbox/university/expts/destiny")
+setwd("/home/tom/Dropbox/university/expts/destiny_public/destiny")
 
 #load the data
 dat = read.csv("forR.csv")
@@ -29,7 +29,7 @@ summary(slope.lm)
 #print(dat$CR_slope)
 
 #the hard way
-datZ <- data.frame
+datZ <- data.frame()
 datZ <- dat$CR_slope
 datZ$CR_intercept<-scale(dat$CR_intercept,center=TRUE,scale=TRUE)
 datZ$CR_slope<-scale(dat$CR_slope,center=TRUE,scale=TRUE)
@@ -42,7 +42,6 @@ datZ$eventEntropy25<-scale(dat$eventEntropy25,center=TRUE,scale=TRUE)
 slope.lmZ <- lm(CR_slope ~ max_plays + space25 + assists_rate+ grimZ+ eventEntropy25, data = datZ)
 
 summary(slope.lmZ)
-
 
 write.csv(summary(slope.lmZ)$coefficients[,1], file = "slope_betas.csv")
 write.csv(summary(slope.lmZ)$coefficients[,2]*1.96,file="slope_se.csv")
